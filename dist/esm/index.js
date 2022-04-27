@@ -1621,6 +1621,14 @@ var CHAIN_INFORMATION = /*#__PURE__*/new Map([[1, {
   shortName: 'FTM',
   explorerUrl: "https://ftmscan.com/",
   testnet: false
+}], [4002, {
+  id: 4002,
+  nativeCurrency: FTM,
+  type: 'fantom',
+  fullName: 'Fantom Opera Testnet',
+  shortName: 'FTM',
+  explorerUrl: "https://testnet.ftmscan.com/",
+  testnet: true
 }], [1666600000, {
   id: 1666600000,
   nativeCurrency: ONE,
