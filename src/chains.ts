@@ -81,6 +81,11 @@ const HECO: Currency = {
   symbol: 'HT',
   decimals: 18,
 }
+const EVMOS: Currency = {
+  name: 'EVMOS',
+  symbol: 'EVMOS',
+  decimals: 18,
+}
 
 const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
   [
@@ -236,6 +241,30 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
       shortName: 'FTM',
       explorerUrl: `https://testnet.ftmscan.com/`,
       testnet: true,
+    },
+  ],
+  [
+    9000,
+    {
+      id: 9000,
+      nativeCurrency: EVMOS,
+      type: 'evmos',
+      fullName: 'Evmos Testnet',
+      shortName: 'EVMOS',
+      explorerUrl: `https://eth.bd.evmos.dev:8545`,
+      testnet: true,
+    },
+  ],
+  [
+    9001,
+    {
+      id: 9001,
+      nativeCurrency: EVMOS,
+      type: 'evmos',
+      fullName: 'Evmos mainnet',
+      shortName: 'EVMOS',
+      explorerUrl: `https://eth.bd.evmos.org:8545`,
+      testnet: false,
     },
   ],
   [

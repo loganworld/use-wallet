@@ -1526,6 +1526,11 @@ var HECO = {
   symbol: 'HT',
   decimals: 18
 };
+var EVMOS = {
+  name: 'EVMOS',
+  symbol: 'EVMOS',
+  decimals: 18
+};
 var CHAIN_INFORMATION = /*#__PURE__*/new Map([[1, {
   id: 1,
   nativeCurrency: ETH,
@@ -1629,6 +1634,22 @@ var CHAIN_INFORMATION = /*#__PURE__*/new Map([[1, {
   shortName: 'FTM',
   explorerUrl: "https://testnet.ftmscan.com/",
   testnet: true
+}], [9000, {
+  id: 9000,
+  nativeCurrency: EVMOS,
+  type: 'evmos',
+  fullName: 'Evmos Testnet',
+  shortName: 'EVMOS',
+  explorerUrl: "https://eth.bd.evmos.dev:8545",
+  testnet: true
+}], [9001, {
+  id: 9001,
+  nativeCurrency: EVMOS,
+  type: 'evmos',
+  fullName: 'Evmos mainnet',
+  shortName: 'EVMOS',
+  explorerUrl: "https://eth.bd.evmos.org:8545",
+  testnet: false
 }], [1666600000, {
   id: 1666600000,
   nativeCurrency: ONE,
