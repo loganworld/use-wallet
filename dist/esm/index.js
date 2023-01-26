@@ -3,6 +3,307 @@ import { useRef, useCallback, useEffect, useState, useContext, useMemo, createEl
 import { Web3ReactProvider, useWeb3React, UnsupportedChainIdError } from '@web3-react/core';
 import JSBI from 'jsbi';
 
+function _regeneratorRuntime() {
+  _regeneratorRuntime = function () {
+    return exports;
+  };
+  var exports = {},
+    Op = Object.prototype,
+    hasOwn = Op.hasOwnProperty,
+    defineProperty = Object.defineProperty || function (obj, key, desc) {
+      obj[key] = desc.value;
+    },
+    $Symbol = "function" == typeof Symbol ? Symbol : {},
+    iteratorSymbol = $Symbol.iterator || "@@iterator",
+    asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator",
+    toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag";
+  function define(obj, key, value) {
+    return Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: !0,
+      configurable: !0,
+      writable: !0
+    }), obj[key];
+  }
+  try {
+    define({}, "");
+  } catch (err) {
+    define = function (obj, key, value) {
+      return obj[key] = value;
+    };
+  }
+  function wrap(innerFn, outerFn, self, tryLocsList) {
+    var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator,
+      generator = Object.create(protoGenerator.prototype),
+      context = new Context(tryLocsList || []);
+    return defineProperty(generator, "_invoke", {
+      value: makeInvokeMethod(innerFn, self, context)
+    }), generator;
+  }
+  function tryCatch(fn, obj, arg) {
+    try {
+      return {
+        type: "normal",
+        arg: fn.call(obj, arg)
+      };
+    } catch (err) {
+      return {
+        type: "throw",
+        arg: err
+      };
+    }
+  }
+  exports.wrap = wrap;
+  var ContinueSentinel = {};
+  function Generator() {}
+  function GeneratorFunction() {}
+  function GeneratorFunctionPrototype() {}
+  var IteratorPrototype = {};
+  define(IteratorPrototype, iteratorSymbol, function () {
+    return this;
+  });
+  var getProto = Object.getPrototypeOf,
+    NativeIteratorPrototype = getProto && getProto(getProto(values([])));
+  NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype);
+  var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype);
+  function defineIteratorMethods(prototype) {
+    ["next", "throw", "return"].forEach(function (method) {
+      define(prototype, method, function (arg) {
+        return this._invoke(method, arg);
+      });
+    });
+  }
+  function AsyncIterator(generator, PromiseImpl) {
+    function invoke(method, arg, resolve, reject) {
+      var record = tryCatch(generator[method], generator, arg);
+      if ("throw" !== record.type) {
+        var result = record.arg,
+          value = result.value;
+        return value && "object" == typeof value && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) {
+          invoke("next", value, resolve, reject);
+        }, function (err) {
+          invoke("throw", err, resolve, reject);
+        }) : PromiseImpl.resolve(value).then(function (unwrapped) {
+          result.value = unwrapped, resolve(result);
+        }, function (error) {
+          return invoke("throw", error, resolve, reject);
+        });
+      }
+      reject(record.arg);
+    }
+    var previousPromise;
+    defineProperty(this, "_invoke", {
+      value: function (method, arg) {
+        function callInvokeWithMethodAndArg() {
+          return new PromiseImpl(function (resolve, reject) {
+            invoke(method, arg, resolve, reject);
+          });
+        }
+        return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg();
+      }
+    });
+  }
+  function makeInvokeMethod(innerFn, self, context) {
+    var state = "suspendedStart";
+    return function (method, arg) {
+      if ("executing" === state) throw new Error("Generator is already running");
+      if ("completed" === state) {
+        if ("throw" === method) throw arg;
+        return doneResult();
+      }
+      for (context.method = method, context.arg = arg;;) {
+        var delegate = context.delegate;
+        if (delegate) {
+          var delegateResult = maybeInvokeDelegate(delegate, context);
+          if (delegateResult) {
+            if (delegateResult === ContinueSentinel) continue;
+            return delegateResult;
+          }
+        }
+        if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) {
+          if ("suspendedStart" === state) throw state = "completed", context.arg;
+          context.dispatchException(context.arg);
+        } else "return" === context.method && context.abrupt("return", context.arg);
+        state = "executing";
+        var record = tryCatch(innerFn, self, context);
+        if ("normal" === record.type) {
+          if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue;
+          return {
+            value: record.arg,
+            done: context.done
+          };
+        }
+        "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg);
+      }
+    };
+  }
+  function maybeInvokeDelegate(delegate, context) {
+    var methodName = context.method,
+      method = delegate.iterator[methodName];
+    if (undefined === method) return context.delegate = null, "throw" === methodName && delegate.iterator.return && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method) || "return" !== methodName && (context.method = "throw", context.arg = new TypeError("The iterator does not provide a '" + methodName + "' method")), ContinueSentinel;
+    var record = tryCatch(method, delegate.iterator, context.arg);
+    if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel;
+    var info = record.arg;
+    return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel);
+  }
+  function pushTryEntry(locs) {
+    var entry = {
+      tryLoc: locs[0]
+    };
+    1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry);
+  }
+  function resetTryEntry(entry) {
+    var record = entry.completion || {};
+    record.type = "normal", delete record.arg, entry.completion = record;
+  }
+  function Context(tryLocsList) {
+    this.tryEntries = [{
+      tryLoc: "root"
+    }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0);
+  }
+  function values(iterable) {
+    if (iterable) {
+      var iteratorMethod = iterable[iteratorSymbol];
+      if (iteratorMethod) return iteratorMethod.call(iterable);
+      if ("function" == typeof iterable.next) return iterable;
+      if (!isNaN(iterable.length)) {
+        var i = -1,
+          next = function next() {
+            for (; ++i < iterable.length;) if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next;
+            return next.value = undefined, next.done = !0, next;
+          };
+        return next.next = next;
+      }
+    }
+    return {
+      next: doneResult
+    };
+  }
+  function doneResult() {
+    return {
+      value: undefined,
+      done: !0
+    };
+  }
+  return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", {
+    value: GeneratorFunctionPrototype,
+    configurable: !0
+  }), defineProperty(GeneratorFunctionPrototype, "constructor", {
+    value: GeneratorFunction,
+    configurable: !0
+  }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) {
+    var ctor = "function" == typeof genFun && genFun.constructor;
+    return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name));
+  }, exports.mark = function (genFun) {
+    return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun;
+  }, exports.awrap = function (arg) {
+    return {
+      __await: arg
+    };
+  }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () {
+    return this;
+  }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) {
+    void 0 === PromiseImpl && (PromiseImpl = Promise);
+    var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl);
+    return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) {
+      return result.done ? result.value : iter.next();
+    });
+  }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () {
+    return this;
+  }), define(Gp, "toString", function () {
+    return "[object Generator]";
+  }), exports.keys = function (val) {
+    var object = Object(val),
+      keys = [];
+    for (var key in object) keys.push(key);
+    return keys.reverse(), function next() {
+      for (; keys.length;) {
+        var key = keys.pop();
+        if (key in object) return next.value = key, next.done = !1, next;
+      }
+      return next.done = !0, next;
+    };
+  }, exports.values = values, Context.prototype = {
+    constructor: Context,
+    reset: function (skipTempReset) {
+      if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined);
+    },
+    stop: function () {
+      this.done = !0;
+      var rootRecord = this.tryEntries[0].completion;
+      if ("throw" === rootRecord.type) throw rootRecord.arg;
+      return this.rval;
+    },
+    dispatchException: function (exception) {
+      if (this.done) throw exception;
+      var context = this;
+      function handle(loc, caught) {
+        return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught;
+      }
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i],
+          record = entry.completion;
+        if ("root" === entry.tryLoc) return handle("end");
+        if (entry.tryLoc <= this.prev) {
+          var hasCatch = hasOwn.call(entry, "catchLoc"),
+            hasFinally = hasOwn.call(entry, "finallyLoc");
+          if (hasCatch && hasFinally) {
+            if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0);
+            if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc);
+          } else if (hasCatch) {
+            if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0);
+          } else {
+            if (!hasFinally) throw new Error("try statement without catch or finally");
+            if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc);
+          }
+        }
+      }
+    },
+    abrupt: function (type, arg) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) {
+          var finallyEntry = entry;
+          break;
+        }
+      }
+      finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null);
+      var record = finallyEntry ? finallyEntry.completion : {};
+      return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record);
+    },
+    complete: function (record, afterLoc) {
+      if ("throw" === record.type) throw record.arg;
+      return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel;
+    },
+    finish: function (finallyLoc) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel;
+      }
+    },
+    catch: function (tryLoc) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.tryLoc === tryLoc) {
+          var record = entry.completion;
+          if ("throw" === record.type) {
+            var thrown = record.arg;
+            resetTryEntry(entry);
+          }
+          return thrown;
+        }
+      }
+      throw new Error("illegal catch attempt");
+    },
+    delegateYield: function (iterable, resultName, nextLoc) {
+      return this.delegate = {
+        iterator: values(iterable),
+        resultName: resultName,
+        nextLoc: nextLoc
+      }, "next" === this.method && (this.arg = undefined), ContinueSentinel;
+    }
+  }, exports;
+}
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
   try {
     var info = gen[key](arg);
@@ -11,80 +312,64 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
     reject(error);
     return;
   }
-
   if (info.done) {
     resolve(value);
   } else {
     Promise.resolve(value).then(_next, _throw);
   }
 }
-
 function _asyncToGenerator(fn) {
   return function () {
     var self = this,
-        args = arguments;
+      args = arguments;
     return new Promise(function (resolve, reject) {
       var gen = fn.apply(self, args);
-
       function _next(value) {
         asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);
       }
-
       function _throw(err) {
         asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);
       }
-
       _next(undefined);
     });
   };
 }
-
 function _extends() {
-  _extends = Object.assign || function (target) {
+  _extends = Object.assign ? Object.assign.bind() : function (target) {
     for (var i = 1; i < arguments.length; i++) {
       var source = arguments[i];
-
       for (var key in source) {
         if (Object.prototype.hasOwnProperty.call(source, key)) {
           target[key] = source[key];
         }
       }
     }
-
     return target;
   };
-
   return _extends.apply(this, arguments);
 }
-
 function _inheritsLoose(subClass, superClass) {
   subClass.prototype = Object.create(superClass.prototype);
   subClass.prototype.constructor = subClass;
-
   _setPrototypeOf(subClass, superClass);
 }
-
 function _getPrototypeOf(o) {
-  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) {
     return o.__proto__ || Object.getPrototypeOf(o);
   };
   return _getPrototypeOf(o);
 }
-
 function _setPrototypeOf(o, p) {
-  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+  _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) {
     o.__proto__ = p;
     return o;
   };
-
   return _setPrototypeOf(o, p);
 }
-
 function _isNativeReflectConstruct() {
   if (typeof Reflect === "undefined" || !Reflect.construct) return false;
   if (Reflect.construct.sham) return false;
   if (typeof Proxy === "function") return true;
-
   try {
     Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {}));
     return true;
@@ -92,10 +377,9 @@ function _isNativeReflectConstruct() {
     return false;
   }
 }
-
 function _construct(Parent, args, Class) {
   if (_isNativeReflectConstruct()) {
-    _construct = Reflect.construct;
+    _construct = Reflect.construct.bind();
   } else {
     _construct = function _construct(Parent, args, Class) {
       var a = [null];
@@ -106,34 +390,25 @@ function _construct(Parent, args, Class) {
       return instance;
     };
   }
-
   return _construct.apply(null, arguments);
 }
-
 function _isNativeFunction(fn) {
   return Function.toString.call(fn).indexOf("[native code]") !== -1;
 }
-
 function _wrapNativeSuper(Class) {
   var _cache = typeof Map === "function" ? new Map() : undefined;
-
   _wrapNativeSuper = function _wrapNativeSuper(Class) {
     if (Class === null || !_isNativeFunction(Class)) return Class;
-
     if (typeof Class !== "function") {
       throw new TypeError("Super expression must either be null or a function");
     }
-
     if (typeof _cache !== "undefined") {
       if (_cache.has(Class)) return _cache.get(Class);
-
       _cache.set(Class, Wrapper);
     }
-
     function Wrapper() {
       return _construct(Class, arguments, _getPrototypeOf(this).constructor);
     }
-
     Wrapper.prototype = Object.create(Class.prototype, {
       constructor: {
         value: Wrapper,
@@ -144,8 +419,346 @@ function _wrapNativeSuper(Class) {
     });
     return _setPrototypeOf(Wrapper, Class);
   };
-
   return _wrapNativeSuper(Class);
+}
+
+var ChainUnsupportedError = /*#__PURE__*/function (_Error) {
+  _inheritsLoose(ChainUnsupportedError, _Error);
+  function ChainUnsupportedError(message) {
+    var _this;
+    for (var _len = arguments.length, params = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      params[_key - 1] = arguments[_key];
+    }
+    _this = _Error.call.apply(_Error, [this].concat(params)) || this;
+    _this.name = 'ChainUnsupportedError';
+    _this.message = message;
+    return _this;
+  }
+  return ChainUnsupportedError;
+}( /*#__PURE__*/_wrapNativeSuper(Error));
+var ChainUnknownError = /*#__PURE__*/function (_Error2) {
+  _inheritsLoose(ChainUnknownError, _Error2);
+  function ChainUnknownError(message) {
+    var _this2;
+    for (var _len2 = arguments.length, params = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
+      params[_key2 - 1] = arguments[_key2];
+    }
+    _this2 = _Error2.call.apply(_Error2, [this].concat(params)) || this;
+    _this2.name = 'ChainUnknownError';
+    _this2.message = message;
+    return _this2;
+  }
+  return ChainUnknownError;
+}( /*#__PURE__*/_wrapNativeSuper(Error));
+var ConnectorUnsupportedError = /*#__PURE__*/function (_Error3) {
+  _inheritsLoose(ConnectorUnsupportedError, _Error3);
+  function ConnectorUnsupportedError(connectorId) {
+    var _this3;
+    for (var _len3 = arguments.length, params = new Array(_len3 > 1 ? _len3 - 1 : 0), _key3 = 1; _key3 < _len3; _key3++) {
+      params[_key3 - 1] = arguments[_key3];
+    }
+    _this3 = _Error3.call.apply(_Error3, [this].concat(params)) || this;
+    _this3.name = 'ConnectorUnsupportedError';
+    _this3.message = "Unsupported connector: " + connectorId + ".";
+    return _this3;
+  }
+  return ConnectorUnsupportedError;
+}( /*#__PURE__*/_wrapNativeSuper(Error));
+var ConnectionRejectedError = /*#__PURE__*/function (_Error4) {
+  _inheritsLoose(ConnectionRejectedError, _Error4);
+  function ConnectionRejectedError() {
+    var _this4;
+    for (var _len4 = arguments.length, params = new Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
+      params[_key4] = arguments[_key4];
+    }
+    _this4 = _Error4.call.apply(_Error4, [this].concat(params)) || this;
+    _this4.name = 'ConnectionRejectedError';
+    _this4.message = "The activation has been rejected by the provider.";
+    return _this4;
+  }
+  return ConnectionRejectedError;
+}( /*#__PURE__*/_wrapNativeSuper(Error));
+var ConnectorConfigError = /*#__PURE__*/function (_Error5) {
+  _inheritsLoose(ConnectorConfigError, _Error5);
+  function ConnectorConfigError() {
+    var _this5;
+    for (var _len5 = arguments.length, params = new Array(_len5), _key5 = 0; _key5 < _len5; _key5++) {
+      params[_key5] = arguments[_key5];
+    }
+    _this5 = _Error5.call.apply(_Error5, [this].concat(params)) || this;
+    _this5.name = 'ConnectorConfigError';
+    return _this5;
+  }
+  return ConnectorConfigError;
+}( /*#__PURE__*/_wrapNativeSuper(Error));
+
+function init() {
+  return _init.apply(this, arguments);
+}
+function _init() {
+  _init = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+    var _yield$import, FortmaticConnector;
+    return _regeneratorRuntime().wrap(function _callee$(_context) {
+      while (1) switch (_context.prev = _context.next) {
+        case 0:
+          _context.next = 2;
+          return import('@web3-react/fortmatic-connector');
+        case 2:
+          _yield$import = _context.sent;
+          FortmaticConnector = _yield$import.FortmaticConnector;
+          return _context.abrupt("return", {
+            web3ReactConnector: function web3ReactConnector(_ref) {
+              var chainId = _ref.chainId,
+                apiKey = _ref.apiKey;
+              if (!apiKey) {
+                throw new ConnectorConfigError('The Fortmatic connector requires apiKey to be set.');
+              }
+              return new FortmaticConnector({
+                apiKey: apiKey,
+                chainId: chainId
+              });
+            }
+          });
+        case 5:
+        case "end":
+          return _context.stop();
+      }
+    }, _callee);
+  }));
+  return _init.apply(this, arguments);
+}
+
+function init$1() {
+  return _init$1.apply(this, arguments);
+}
+function _init$1() {
+  _init$1 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+    var _yield$import, FrameConnector, UserRejectedRequestError;
+    return _regeneratorRuntime().wrap(function _callee$(_context) {
+      while (1) switch (_context.prev = _context.next) {
+        case 0:
+          _context.next = 2;
+          return import('@web3-react/frame-connector');
+        case 2:
+          _yield$import = _context.sent;
+          FrameConnector = _yield$import.FrameConnector;
+          UserRejectedRequestError = _yield$import.UserRejectedRequestError;
+          return _context.abrupt("return", {
+            web3ReactConnector: function web3ReactConnector(_ref) {
+              var chainId = _ref.chainId;
+              return new FrameConnector({
+                supportedChainIds: [chainId]
+              });
+            },
+            handleActivationError: function handleActivationError(err) {
+              if (err instanceof UserRejectedRequestError) {
+                return new ConnectionRejectedError();
+              }
+              if (err.message.startsWith('JSON.parse')) {
+                return new Error('There seems to be an issue when trying to connect to Frame.');
+              }
+              return null;
+            }
+          });
+        case 6:
+        case "end":
+          return _context.stop();
+      }
+    }, _callee);
+  }));
+  return _init$1.apply(this, arguments);
+}
+
+function init$2() {
+  return _init$2.apply(this, arguments);
+}
+function _init$2() {
+  _init$2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+    var _yield$import, InjectedConnector, UserRejectedRequestError;
+    return _regeneratorRuntime().wrap(function _callee$(_context) {
+      while (1) switch (_context.prev = _context.next) {
+        case 0:
+          _context.next = 2;
+          return import('@web3-react/injected-connector');
+        case 2:
+          _yield$import = _context.sent;
+          InjectedConnector = _yield$import.InjectedConnector;
+          UserRejectedRequestError = _yield$import.UserRejectedRequestError;
+          return _context.abrupt("return", {
+            web3ReactConnector: function web3ReactConnector(_ref) {
+              var chainId = _ref.chainId;
+              return new InjectedConnector({
+                supportedChainIds: chainId
+              });
+            },
+            handleActivationError: function handleActivationError(err) {
+              return err instanceof UserRejectedRequestError ? new ConnectionRejectedError() : null;
+            }
+          });
+        case 6:
+        case "end":
+          return _context.stop();
+      }
+    }, _callee);
+  }));
+  return _init$2.apply(this, arguments);
+}
+
+function init$3() {
+  return _init$3.apply(this, arguments);
+}
+function _init$3() {
+  _init$3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+    var _yield$import, PortisConnector;
+    return _regeneratorRuntime().wrap(function _callee$(_context) {
+      while (1) switch (_context.prev = _context.next) {
+        case 0:
+          _context.next = 2;
+          return import('@web3-react/portis-connector');
+        case 2:
+          _yield$import = _context.sent;
+          PortisConnector = _yield$import.PortisConnector;
+          return _context.abrupt("return", {
+            web3ReactConnector: function web3ReactConnector(_ref) {
+              var chainId = _ref.chainId,
+                dAppId = _ref.dAppId;
+              if (!dAppId) {
+                throw new ConnectorConfigError('The Portis connector requires dAppId to be set.');
+              }
+              return new PortisConnector({
+                dAppId: dAppId,
+                networks: chainId
+              });
+            }
+          });
+        case 5:
+        case "end":
+          return _context.stop();
+      }
+    }, _callee);
+  }));
+  return _init$3.apply(this, arguments);
+}
+
+function init$4() {
+  return _init$4.apply(this, arguments);
+}
+function _init$4() {
+  _init$4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+    var _yield$import, ProvidedConnector, UserRejectedRequestError;
+    return _regeneratorRuntime().wrap(function _callee$(_context) {
+      while (1) switch (_context.prev = _context.next) {
+        case 0:
+          _context.next = 2;
+          return import('@aragon/provided-connector');
+        case 2:
+          _yield$import = _context.sent;
+          ProvidedConnector = _yield$import.ProvidedConnector;
+          UserRejectedRequestError = _yield$import.UserRejectedRequestError;
+          return _context.abrupt("return", {
+            web3ReactConnector: function web3ReactConnector(_ref) {
+              var chainId = _ref.chainId,
+                provider = _ref.provider;
+              return new ProvidedConnector({
+                provider: provider,
+                supportedChainIds: chainId
+              });
+            },
+            handleActivationError: function handleActivationError(err) {
+              return err instanceof UserRejectedRequestError ? new ConnectionRejectedError() : null;
+            }
+          });
+        case 6:
+        case "end":
+          return _context.stop();
+      }
+    }, _callee);
+  }));
+  return _init$4.apply(this, arguments);
+}
+
+function init$5() {
+  return _init$5.apply(this, arguments);
+}
+function _init$5() {
+  _init$5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+    var _yield$import, TorusConnector;
+    return _regeneratorRuntime().wrap(function _callee$(_context) {
+      while (1) switch (_context.prev = _context.next) {
+        case 0:
+          _context.next = 2;
+          return import('@web3-react/torus-connector');
+        case 2:
+          _yield$import = _context.sent;
+          TorusConnector = _yield$import.TorusConnector;
+          return _context.abrupt("return", {
+            web3ReactConnector: function web3ReactConnector(_ref) {
+              var chainId = _ref.chainId,
+                initOptions = _ref.initOptions,
+                constructorOptions = _ref.constructorOptions;
+              return new TorusConnector({
+                chainId: chainId,
+                constructorOptions: constructorOptions,
+                initOptions: initOptions
+              });
+            }
+          });
+        case 5:
+        case "end":
+          return _context.stop();
+      }
+    }, _callee);
+  }));
+  return _init$5.apply(this, arguments);
+}
+
+function init$6() {
+  return _init$6.apply(this, arguments);
+}
+function _init$6() {
+  _init$6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+    var _yield$import, UserRejectedRequestError, WalletConnectConnector;
+    return _regeneratorRuntime().wrap(function _callee$(_context) {
+      while (1) switch (_context.prev = _context.next) {
+        case 0:
+          _context.next = 2;
+          return import('@web3-react/walletconnect-connector');
+        case 2:
+          _yield$import = _context.sent;
+          UserRejectedRequestError = _yield$import.UserRejectedRequestError;
+          WalletConnectConnector = _yield$import.WalletConnectConnector;
+          return _context.abrupt("return", {
+            web3ReactConnector: function web3ReactConnector(_ref) {
+              var rpc = _ref.rpc,
+                bridge = _ref.bridge,
+                pollingInterval = _ref.pollingInterval;
+              if (!rpc) {
+                throw new ConnectorConfigError('The WalletConnect connector requires rpcUrl to be set.');
+              }
+              Object.values(rpc).forEach(function (url) {
+                if (!/^https?:\/\//.test(url)) {
+                  throw new ConnectorConfigError('The WalletConnect connector requires rpcUrl to be an HTTP URL.');
+                }
+                return;
+              });
+              return new WalletConnectConnector({
+                bridge: bridge,
+                pollingInterval: pollingInterval,
+                qrcode: true,
+                rpc: rpc
+              });
+            },
+            handleActivationError: function handleActivationError(err) {
+              return err instanceof UserRejectedRequestError ? new ConnectionRejectedError() : null;
+            }
+          });
+        case 6:
+        case "end":
+          return _context.stop();
+      }
+    }, _callee);
+  }));
+  return _init$6.apply(this, arguments);
 }
 
 function createCommonjsModule(fn, module) {
@@ -164,6 +777,7 @@ var runtime = (function (exports) {
 
   var Op = Object.prototype;
   var hasOwn = Op.hasOwnProperty;
+  var defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value; };
   var undefined$1; // More compressible than void 0.
   var $Symbol = typeof Symbol === "function" ? Symbol : {};
   var iteratorSymbol = $Symbol.iterator || "@@iterator";
@@ -196,7 +810,7 @@ var runtime = (function (exports) {
 
     // The ._invoke method unifies the implementations of the .next,
     // .throw, and .return methods.
-    generator._invoke = makeInvokeMethod(innerFn, self, context);
+    defineProperty(generator, "_invoke", { value: makeInvokeMethod(innerFn, self, context) });
 
     return generator;
   }
@@ -257,8 +871,12 @@ var runtime = (function (exports) {
   var Gp = GeneratorFunctionPrototype.prototype =
     Generator.prototype = Object.create(IteratorPrototype);
   GeneratorFunction.prototype = GeneratorFunctionPrototype;
-  define(Gp, "constructor", GeneratorFunctionPrototype);
-  define(GeneratorFunctionPrototype, "constructor", GeneratorFunction);
+  defineProperty(Gp, "constructor", { value: GeneratorFunctionPrototype, configurable: true });
+  defineProperty(
+    GeneratorFunctionPrototype,
+    "constructor",
+    { value: GeneratorFunction, configurable: true }
+  );
   GeneratorFunction.displayName = define(
     GeneratorFunctionPrototype,
     toStringTagSymbol,
@@ -368,7 +986,7 @@ var runtime = (function (exports) {
 
     // Define the unified helper method that is used to implement .next,
     // .throw, and .return (see defineIteratorMethods).
-    this._invoke = enqueue;
+    defineProperty(this, "_invoke", { value: enqueue });
   }
 
   defineIteratorMethods(AsyncIterator.prototype);
@@ -478,31 +1096,32 @@ var runtime = (function (exports) {
   // delegate iterator, or by modifying context.method and context.arg,
   // setting context.delegate to null, and returning the ContinueSentinel.
   function maybeInvokeDelegate(delegate, context) {
-    var method = delegate.iterator[context.method];
+    var methodName = context.method;
+    var method = delegate.iterator[methodName];
     if (method === undefined$1) {
       // A .throw or .return when the delegate iterator has no .throw
-      // method always terminates the yield* loop.
+      // method, or a missing .next mehtod, always terminate the
+      // yield* loop.
       context.delegate = null;
 
-      if (context.method === "throw") {
-        // Note: ["return"] must be used for ES3 parsing compatibility.
-        if (delegate.iterator["return"]) {
-          // If the delegate iterator has a return method, give it a
-          // chance to clean up.
-          context.method = "return";
-          context.arg = undefined$1;
-          maybeInvokeDelegate(delegate, context);
+      // Note: ["return"] must be used for ES3 parsing compatibility.
+      if (methodName === "throw" && delegate.iterator["return"]) {
+        // If the delegate iterator has a return method, give it a
+        // chance to clean up.
+        context.method = "return";
+        context.arg = undefined$1;
+        maybeInvokeDelegate(delegate, context);
 
-          if (context.method === "throw") {
-            // If maybeInvokeDelegate(context) changed context.method from
-            // "return" to "throw", let that override the TypeError below.
-            return ContinueSentinel;
-          }
+        if (context.method === "throw") {
+          // If maybeInvokeDelegate(context) changed context.method from
+          // "return" to "throw", let that override the TypeError below.
+          return ContinueSentinel;
         }
-
+      }
+      if (methodName !== "return") {
         context.method = "throw";
         context.arg = new TypeError(
-          "The iterator does not provide a 'throw' method");
+          "The iterator does not provide a '" + methodName + "' method");
       }
 
       return ContinueSentinel;
@@ -606,7 +1225,8 @@ var runtime = (function (exports) {
     this.reset(true);
   }
 
-  exports.keys = function(object) {
+  exports.keys = function(val) {
+    var object = Object(val);
     var keys = [];
     for (var key in object) {
       keys.push(key);
@@ -908,511 +1528,84 @@ try {
 }
 });
 
-var ChainUnsupportedError = /*#__PURE__*/function (_Error) {
-  _inheritsLoose(ChainUnsupportedError, _Error);
-
-  function ChainUnsupportedError(message) {
-    var _this;
-
-    for (var _len = arguments.length, params = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-      params[_key - 1] = arguments[_key];
-    }
-
-    _this = _Error.call.apply(_Error, [this].concat(params)) || this;
-    _this.name = 'ChainUnsupportedError';
-    _this.message = message;
-    return _this;
-  }
-
-  return ChainUnsupportedError;
-}( /*#__PURE__*/_wrapNativeSuper(Error));
-var ChainUnknownError = /*#__PURE__*/function (_Error2) {
-  _inheritsLoose(ChainUnknownError, _Error2);
-
-  function ChainUnknownError(message) {
-    var _this2;
-
-    for (var _len2 = arguments.length, params = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
-      params[_key2 - 1] = arguments[_key2];
-    }
-
-    _this2 = _Error2.call.apply(_Error2, [this].concat(params)) || this;
-    _this2.name = 'ChainUnknownError';
-    _this2.message = message;
-    return _this2;
-  }
-
-  return ChainUnknownError;
-}( /*#__PURE__*/_wrapNativeSuper(Error));
-var ConnectorUnsupportedError = /*#__PURE__*/function (_Error3) {
-  _inheritsLoose(ConnectorUnsupportedError, _Error3);
-
-  function ConnectorUnsupportedError(connectorId) {
-    var _this3;
-
-    for (var _len3 = arguments.length, params = new Array(_len3 > 1 ? _len3 - 1 : 0), _key3 = 1; _key3 < _len3; _key3++) {
-      params[_key3 - 1] = arguments[_key3];
-    }
-
-    _this3 = _Error3.call.apply(_Error3, [this].concat(params)) || this;
-    _this3.name = 'ConnectorUnsupportedError';
-    _this3.message = "Unsupported connector: " + connectorId + ".";
-    return _this3;
-  }
-
-  return ConnectorUnsupportedError;
-}( /*#__PURE__*/_wrapNativeSuper(Error));
-var ConnectionRejectedError = /*#__PURE__*/function (_Error4) {
-  _inheritsLoose(ConnectionRejectedError, _Error4);
-
-  function ConnectionRejectedError() {
-    var _this4;
-
-    for (var _len4 = arguments.length, params = new Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
-      params[_key4] = arguments[_key4];
-    }
-
-    _this4 = _Error4.call.apply(_Error4, [this].concat(params)) || this;
-    _this4.name = 'ConnectionRejectedError';
-    _this4.message = "The activation has been rejected by the provider.";
-    return _this4;
-  }
-
-  return ConnectionRejectedError;
-}( /*#__PURE__*/_wrapNativeSuper(Error));
-var ConnectorConfigError = /*#__PURE__*/function (_Error5) {
-  _inheritsLoose(ConnectorConfigError, _Error5);
-
-  function ConnectorConfigError() {
-    var _this5;
-
-    for (var _len5 = arguments.length, params = new Array(_len5), _key5 = 0; _key5 < _len5; _key5++) {
-      params[_key5] = arguments[_key5];
-    }
-
-    _this5 = _Error5.call.apply(_Error5, [this].concat(params)) || this;
-    _this5.name = 'ConnectorConfigError';
-    return _this5;
-  }
-
-  return ConnectorConfigError;
-}( /*#__PURE__*/_wrapNativeSuper(Error));
-
-function init() {
-  return _init.apply(this, arguments);
-}
-
-function _init() {
-  _init = _asyncToGenerator( /*#__PURE__*/runtime_1.mark(function _callee() {
-    var _yield$import, FortmaticConnector;
-
-    return runtime_1.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            _context.next = 2;
-            return import('@web3-react/fortmatic-connector');
-
-          case 2:
-            _yield$import = _context.sent;
-            FortmaticConnector = _yield$import.FortmaticConnector;
-            return _context.abrupt("return", {
-              web3ReactConnector: function web3ReactConnector(_ref) {
-                var chainId = _ref.chainId,
-                    apiKey = _ref.apiKey;
-
-                if (!apiKey) {
-                  throw new ConnectorConfigError('The Fortmatic connector requires apiKey to be set.');
-                }
-
-                return new FortmaticConnector({
-                  apiKey: apiKey,
-                  chainId: chainId
-                });
-              }
-            });
-
-          case 5:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-  return _init.apply(this, arguments);
-}
-
-function init$1() {
-  return _init$1.apply(this, arguments);
-}
-
-function _init$1() {
-  _init$1 = _asyncToGenerator( /*#__PURE__*/runtime_1.mark(function _callee() {
-    var _yield$import, FrameConnector, UserRejectedRequestError;
-
-    return runtime_1.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            _context.next = 2;
-            return import('@web3-react/frame-connector');
-
-          case 2:
-            _yield$import = _context.sent;
-            FrameConnector = _yield$import.FrameConnector;
-            UserRejectedRequestError = _yield$import.UserRejectedRequestError;
-            return _context.abrupt("return", {
-              web3ReactConnector: function web3ReactConnector(_ref) {
-                var chainId = _ref.chainId;
-                return new FrameConnector({
-                  supportedChainIds: [chainId]
-                });
-              },
-              handleActivationError: function handleActivationError(err) {
-                if (err instanceof UserRejectedRequestError) {
-                  return new ConnectionRejectedError();
-                }
-
-                if (err.message.startsWith('JSON.parse')) {
-                  return new Error('There seems to be an issue when trying to connect to Frame.');
-                }
-
-                return null;
-              }
-            });
-
-          case 6:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-  return _init$1.apply(this, arguments);
-}
-
-function init$2() {
-  return _init$2.apply(this, arguments);
-}
-
-function _init$2() {
-  _init$2 = _asyncToGenerator( /*#__PURE__*/runtime_1.mark(function _callee() {
-    var _yield$import, InjectedConnector, UserRejectedRequestError;
-
-    return runtime_1.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            _context.next = 2;
-            return import('@web3-react/injected-connector');
-
-          case 2:
-            _yield$import = _context.sent;
-            InjectedConnector = _yield$import.InjectedConnector;
-            UserRejectedRequestError = _yield$import.UserRejectedRequestError;
-            return _context.abrupt("return", {
-              web3ReactConnector: function web3ReactConnector(_ref) {
-                var chainId = _ref.chainId;
-                return new InjectedConnector({
-                  supportedChainIds: chainId
-                });
-              },
-              handleActivationError: function handleActivationError(err) {
-                return err instanceof UserRejectedRequestError ? new ConnectionRejectedError() : null;
-              }
-            });
-
-          case 6:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-  return _init$2.apply(this, arguments);
-}
-
-function init$3() {
-  return _init$3.apply(this, arguments);
-}
-
-function _init$3() {
-  _init$3 = _asyncToGenerator( /*#__PURE__*/runtime_1.mark(function _callee() {
-    var _yield$import, PortisConnector;
-
-    return runtime_1.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            _context.next = 2;
-            return import('@web3-react/portis-connector');
-
-          case 2:
-            _yield$import = _context.sent;
-            PortisConnector = _yield$import.PortisConnector;
-            return _context.abrupt("return", {
-              web3ReactConnector: function web3ReactConnector(_ref) {
-                var chainId = _ref.chainId,
-                    dAppId = _ref.dAppId;
-
-                if (!dAppId) {
-                  throw new ConnectorConfigError('The Portis connector requires dAppId to be set.');
-                }
-
-                return new PortisConnector({
-                  dAppId: dAppId,
-                  networks: chainId
-                });
-              }
-            });
-
-          case 5:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-  return _init$3.apply(this, arguments);
-}
-
-function init$4() {
-  return _init$4.apply(this, arguments);
-}
-
-function _init$4() {
-  _init$4 = _asyncToGenerator( /*#__PURE__*/runtime_1.mark(function _callee() {
-    var _yield$import, ProvidedConnector, UserRejectedRequestError;
-
-    return runtime_1.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            _context.next = 2;
-            return import('@aragon/provided-connector');
-
-          case 2:
-            _yield$import = _context.sent;
-            ProvidedConnector = _yield$import.ProvidedConnector;
-            UserRejectedRequestError = _yield$import.UserRejectedRequestError;
-            return _context.abrupt("return", {
-              web3ReactConnector: function web3ReactConnector(_ref) {
-                var chainId = _ref.chainId,
-                    provider = _ref.provider;
-                return new ProvidedConnector({
-                  provider: provider,
-                  supportedChainIds: chainId
-                });
-              },
-              handleActivationError: function handleActivationError(err) {
-                return err instanceof UserRejectedRequestError ? new ConnectionRejectedError() : null;
-              }
-            });
-
-          case 6:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-  return _init$4.apply(this, arguments);
-}
-
-function init$5() {
-  return _init$5.apply(this, arguments);
-}
-
-function _init$5() {
-  _init$5 = _asyncToGenerator( /*#__PURE__*/runtime_1.mark(function _callee() {
-    var _yield$import, TorusConnector;
-
-    return runtime_1.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            _context.next = 2;
-            return import('@web3-react/torus-connector');
-
-          case 2:
-            _yield$import = _context.sent;
-            TorusConnector = _yield$import.TorusConnector;
-            return _context.abrupt("return", {
-              web3ReactConnector: function web3ReactConnector(_ref) {
-                var chainId = _ref.chainId,
-                    initOptions = _ref.initOptions,
-                    constructorOptions = _ref.constructorOptions;
-                return new TorusConnector({
-                  chainId: chainId,
-                  constructorOptions: constructorOptions,
-                  initOptions: initOptions
-                });
-              }
-            });
-
-          case 5:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-  return _init$5.apply(this, arguments);
-}
-
-function init$6() {
-  return _init$6.apply(this, arguments);
-}
-
-function _init$6() {
-  _init$6 = _asyncToGenerator( /*#__PURE__*/runtime_1.mark(function _callee() {
-    var _yield$import, UserRejectedRequestError, WalletConnectConnector;
-
-    return runtime_1.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            _context.next = 2;
-            return import('@web3-react/walletconnect-connector');
-
-          case 2:
-            _yield$import = _context.sent;
-            UserRejectedRequestError = _yield$import.UserRejectedRequestError;
-            WalletConnectConnector = _yield$import.WalletConnectConnector;
-            return _context.abrupt("return", {
-              web3ReactConnector: function web3ReactConnector(_ref) {
-                var rpc = _ref.rpc,
-                    bridge = _ref.bridge,
-                    pollingInterval = _ref.pollingInterval;
-
-                if (!rpc) {
-                  throw new ConnectorConfigError('The WalletConnect connector requires rpcUrl to be set.');
-                }
-
-                Object.values(rpc).forEach(function (url) {
-                  if (!/^https?:\/\//.test(url)) {
-                    throw new ConnectorConfigError('The WalletConnect connector requires rpcUrl to be an HTTP URL.');
-                  }
-
-                  return;
-                });
-                return new WalletConnectConnector({
-                  bridge: bridge,
-                  pollingInterval: pollingInterval,
-                  qrcode: true,
-                  rpc: rpc
-                });
-              },
-              handleActivationError: function handleActivationError(err) {
-                return err instanceof UserRejectedRequestError ? new ConnectionRejectedError() : null;
-              }
-            });
-
-          case 6:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-  return _init$6.apply(this, arguments);
-}
-
 function init$7() {
   return _init$7.apply(this, arguments);
 }
-
 function _init$7() {
-  _init$7 = _asyncToGenerator( /*#__PURE__*/runtime_1.mark(function _callee() {
+  _init$7 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
     var _yield$import, WalletLinkConnector;
-
-    return runtime_1.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            _context.next = 2;
-            return import('@web3-react/walletlink-connector');
-
-          case 2:
-            _yield$import = _context.sent;
-            WalletLinkConnector = _yield$import.WalletLinkConnector;
-            return _context.abrupt("return", {
-              web3ReactConnector: function web3ReactConnector(_ref) {
-                var chainId = _ref.chainId,
-                    url = _ref.url,
-                    appName = _ref.appName,
-                    appLogoUrl = _ref.appLogoUrl;
-
-                if (chainId !== 1) {
-                  throw new ConnectorConfigError('The WalletLink connector requires chainId to be 1.');
-                }
-
-                if (!/^https?:\/\//.test(url)) {
-                  throw new ConnectorConfigError('The WalletLink connector requires url to be an HTTP URL.');
-                }
-
-                return new WalletLinkConnector({
-                  url: url,
-                  appName: appName,
-                  appLogoUrl: appLogoUrl
-                });
+    return _regeneratorRuntime().wrap(function _callee$(_context) {
+      while (1) switch (_context.prev = _context.next) {
+        case 0:
+          _context.next = 2;
+          return import('@web3-react/walletlink-connector');
+        case 2:
+          _yield$import = _context.sent;
+          WalletLinkConnector = _yield$import.WalletLinkConnector;
+          return _context.abrupt("return", {
+            web3ReactConnector: function web3ReactConnector(_ref) {
+              var chainId = _ref.chainId,
+                url = _ref.url,
+                appName = _ref.appName,
+                appLogoUrl = _ref.appLogoUrl;
+              if (chainId !== 1) {
+                throw new ConnectorConfigError('The WalletLink connector requires chainId to be 1.');
               }
-            });
-
-          case 5:
-          case "end":
-            return _context.stop();
-        }
+              if (!/^https?:\/\//.test(url)) {
+                throw new ConnectorConfigError('The WalletLink connector requires url to be an HTTP URL.');
+              }
+              return new WalletLinkConnector({
+                url: url,
+                appName: appName,
+                appLogoUrl: appLogoUrl
+              });
+            }
+          });
+        case 5:
+        case "end":
+          return _context.stop();
       }
     }, _callee);
   }));
   return _init$7.apply(this, arguments);
 }
 
+// NOTE: The ledger live path specify which chain and which account is used
 // on the hardware wallet. This should eventually be made dynamic.
-
 var LEDGER_LIVE_PATH = "m/44'/60'/0'/0";
 var POLLING_INTERVAL = 12000;
 function init$8() {
   return _init$8.apply(this, arguments);
 }
-
 function _init$8() {
-  _init$8 = _asyncToGenerator( /*#__PURE__*/runtime_1.mark(function _callee() {
+  _init$8 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
     var _yield$import, LedgerConnector;
-
-    return runtime_1.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            _context.next = 2;
-            return import('@web3-react/ledger-connector');
-
-          case 2:
-            _yield$import = _context.sent;
-            LedgerConnector = _yield$import.LedgerConnector;
-            return _context.abrupt("return", {
-              web3ReactConnector: function web3ReactConnector(_ref) {
-                var chainId = _ref.chainId,
-                    url = _ref.url;
-
-                if (!url) {
-                  throw new ConnectorConfigError('The Ledger connector requires url to be set.');
-                }
-
-                return new LedgerConnector({
-                  url: url,
-                  chainId: chainId,
-                  pollingInterval: POLLING_INTERVAL,
-                  baseDerivationPath: LEDGER_LIVE_PATH
-                });
+    return _regeneratorRuntime().wrap(function _callee$(_context) {
+      while (1) switch (_context.prev = _context.next) {
+        case 0:
+          _context.next = 2;
+          return import('@web3-react/ledger-connector');
+        case 2:
+          _yield$import = _context.sent;
+          LedgerConnector = _yield$import.LedgerConnector;
+          return _context.abrupt("return", {
+            web3ReactConnector: function web3ReactConnector(_ref) {
+              var chainId = _ref.chainId,
+                url = _ref.url;
+              if (!url) {
+                throw new ConnectorConfigError('The Ledger connector requires url to be set.');
               }
-            });
-
-          case 5:
-          case "end":
-            return _context.stop();
-        }
+              return new LedgerConnector({
+                url: url,
+                chainId: chainId,
+                pollingInterval: POLLING_INTERVAL,
+                baseDerivationPath: LEDGER_LIVE_PATH
+              });
+            }
+          });
+        case 5:
+        case "end":
+          return _context.stop();
       }
     }, _callee);
   }));
@@ -1423,7 +1616,6 @@ function getConnectors(initsOrConfigs) {
   if (initsOrConfigs === void 0) {
     initsOrConfigs = {};
   }
-
   var connectors = {
     fortmatic: [init, null],
     frame: [init$1, null],
@@ -1435,24 +1627,20 @@ function getConnectors(initsOrConfigs) {
     walletlink: [init$7, null],
     ledger: [init$8, null]
   };
-
   for (var _i = 0, _Object$entries = Object.entries(initsOrConfigs); _i < _Object$entries.length; _i++) {
     var _Object$entries$_i = _Object$entries[_i],
-        id = _Object$entries$_i[0],
-        initOrConfig = _Object$entries$_i[1];
-
+      id = _Object$entries$_i[0],
+      initOrConfig = _Object$entries$_i[1];
     // If initOrConfig is a function, it is an initializer.
     if (typeof initOrConfig === 'function') {
       connectors[id] = [initOrConfig, null];
       continue;
-    } // Otherwise it is a config
-
-
+    }
+    // Otherwise it is a config
     if (connectors[id]) {
       connectors[id][1] = initOrConfig;
     }
   }
-
   return connectors;
 }
 
@@ -1802,6 +1990,22 @@ var CHAIN_INFORMATION = /*#__PURE__*/new Map([[1, {
   shortName: 'HECO',
   explorerUrl: "https://hecoscan.xyz/",
   testnet: false
+}], [42161, {
+  id: 42161,
+  nativeCurrency: ETH,
+  type: 'main',
+  fullName: 'Arbitrum',
+  shortName: 'Arbitrum',
+  explorerUrl: "https://arbiscan.io/",
+  testnet: false
+}], [421613, {
+  id: 421613,
+  nativeCurrency: ETH,
+  type: 'testnet',
+  fullName: 'Arbitrum Goerli Testnet',
+  shortName: 'Arbitrum',
+  explorerUrl: "https://goerli.arbiscan.io/",
+  testnet: true
 }]]);
 /**
  * This method checks whether a particular chain id is known.
@@ -1809,7 +2013,6 @@ var CHAIN_INFORMATION = /*#__PURE__*/new Map([[1, {
  * @param {number} chainId chain id to check
  * @returns {boolean} true if chain is known
  */
-
 function isKnownChain(chainId) {
   return CHAIN_INFORMATION.has(chainId);
 }
@@ -1819,7 +2022,6 @@ function isKnownChain(chainId) {
  * @throws {ChainUnknownError} if chain is unknown
  * @returns {boolean} information for specified chain
  */
-
 function getChainInformation(chainId) {
   var chainInfo = CHAIN_INFORMATION.get(chainId);
   if (!chainInfo) throw new ChainUnknownError("Unknown chain id: " + chainId);
@@ -1830,7 +2032,6 @@ function getChainInformation(chainId) {
  *
  * @returns {number[]} array of chain Ids
  */
-
 function getKnownChainsIds() {
   return Array.from(CHAIN_INFORMATION.keys());
 }
@@ -1840,7 +2041,6 @@ function getKnownChainsIds() {
  * @returns {ChainInformation | ChainType[]} An array containing information for
  * each known chain
  */
-
 function getKnownChainInformation() {
   return Array.from(CHAIN_INFORMATION.values());
 }
@@ -1860,17 +2060,14 @@ var chains = {
 function isUnwrappedRpcResult(response) {
   return typeof response === 'object' && response !== null && 'jsonrpc' in response;
 }
-
 var EXPLORER_URL_TYPES = /*#__PURE__*/new Map([['block', 'block'], ['transaction', 'tx'], ['address', 'address'], ['token', 'token']]);
 var blockExplorerUrl = function blockExplorerUrl(type, value, chainId) {
   if (!getKnownChainsIds().includes(chainId)) {
     return '';
   }
-
   if (!EXPLORER_URL_TYPES.has(type)) {
     throw new Error('type not supported.');
   }
-
   var domain = getChainInformation(chainId).explorerUrl;
   var typePart = EXPLORER_URL_TYPES.get(type);
   return domain + "/" + typePart + "/" + value;
@@ -1881,195 +2078,154 @@ function rpcResult(response) {
     if (response.error) {
       throw new Error(response.error);
     }
-
     return response.result || null;
   }
-
   return response || null;
 }
-
 function ethereumRequest(_x, _x2, _x3) {
   return _ethereumRequest.apply(this, arguments);
 }
-
 function _ethereumRequest() {
-  _ethereumRequest = _asyncToGenerator( /*#__PURE__*/runtime_1.mark(function _callee2(ethereum, method, params) {
-    return runtime_1.wrap(function _callee2$(_context2) {
-      while (1) {
-        switch (_context2.prev = _context2.next) {
-          case 0:
-            if (!ethereum.request) {
-              _context2.next = 2;
-              break;
-            }
-
-            return _context2.abrupt("return", ethereum.request({
+  _ethereumRequest = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(ethereum, method, params) {
+    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+      while (1) switch (_context2.prev = _context2.next) {
+        case 0:
+          if (!ethereum.request) {
+            _context2.next = 2;
+            break;
+          }
+          return _context2.abrupt("return", ethereum.request({
+            method: method,
+            params: params
+          }).then(rpcResult));
+        case 2:
+          if (!(ethereum.sendAsync && ethereum.selectedAddress)) {
+            _context2.next = 4;
+            break;
+          }
+          return _context2.abrupt("return", new Promise(function (resolve, reject) {
+            ethereum.sendAsync({
               method: method,
-              params: params
-            }).then(rpcResult));
-
-          case 2:
-            if (!(ethereum.sendAsync && ethereum.selectedAddress)) {
-              _context2.next = 4;
-              break;
-            }
-
-            return _context2.abrupt("return", new Promise(function (resolve, reject) {
-              ethereum.sendAsync({
-                method: method,
-                params: params,
-                from: ethereum.selectedAddress,
-                jsonrpc: '2.0',
-                id: 0
-              }, function (err, result) {
-                if (err) {
-                  reject(err);
-                } else {
-                  resolve(result);
-                }
-              });
-            }).then(rpcResult));
-
-          case 4:
-            if (!ethereum.send) {
-              _context2.next = 6;
-              break;
-            }
-
-            return _context2.abrupt("return", ethereum.send(method, params).then(rpcResult));
-
-          case 6:
-            throw new Error('The Ethereum provider doesn’t seem to provide a request method.');
-
-          case 7:
-          case "end":
-            return _context2.stop();
-        }
+              params: params,
+              from: ethereum.selectedAddress,
+              jsonrpc: '2.0',
+              id: 0
+            }, function (err, result) {
+              if (err) {
+                reject(err);
+              } else {
+                resolve(result);
+              }
+            });
+          }).then(rpcResult));
+        case 4:
+          if (!ethereum.send) {
+            _context2.next = 6;
+            break;
+          }
+          return _context2.abrupt("return", ethereum.send(method, params).then(rpcResult));
+        case 6:
+          throw new Error('The Ethereum provider doesn’t seem to provide a request method.');
+        case 7:
+        case "end":
+          return _context2.stop();
       }
     }, _callee2);
   }));
   return _ethereumRequest.apply(this, arguments);
 }
-
 function getAccountIsContract(_x4, _x5) {
   return _getAccountIsContract.apply(this, arguments);
 }
-
 function _getAccountIsContract() {
-  _getAccountIsContract = _asyncToGenerator( /*#__PURE__*/runtime_1.mark(function _callee3(ethereum, account) {
+  _getAccountIsContract = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(ethereum, account) {
     var code;
-    return runtime_1.wrap(function _callee3$(_context3) {
-      while (1) {
-        switch (_context3.prev = _context3.next) {
-          case 0:
-            _context3.prev = 0;
-            _context3.next = 3;
-            return ethereumRequest(ethereum, 'eth_getCode', [account]);
-
-          case 3:
-            code = _context3.sent;
-            return _context3.abrupt("return", code !== '0x');
-
-          case 7:
-            _context3.prev = 7;
-            _context3.t0 = _context3["catch"](0);
-            return _context3.abrupt("return", false);
-
-          case 10:
-          case "end":
-            return _context3.stop();
-        }
+    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+      while (1) switch (_context3.prev = _context3.next) {
+        case 0:
+          _context3.prev = 0;
+          _context3.next = 3;
+          return ethereumRequest(ethereum, 'eth_getCode', [account]);
+        case 3:
+          code = _context3.sent;
+          return _context3.abrupt("return", code !== '0x');
+        case 7:
+          _context3.prev = 7;
+          _context3.t0 = _context3["catch"](0);
+          return _context3.abrupt("return", false);
+        case 10:
+        case "end":
+          return _context3.stop();
       }
     }, _callee3, null, [[0, 7]]);
   }));
   return _getAccountIsContract.apply(this, arguments);
 }
-
 function getAccountBalance(_x6, _x7) {
   return _getAccountBalance.apply(this, arguments);
 }
-
 function _getAccountBalance() {
-  _getAccountBalance = _asyncToGenerator( /*#__PURE__*/runtime_1.mark(function _callee4(ethereum, account) {
-    return runtime_1.wrap(function _callee4$(_context4) {
-      while (1) {
-        switch (_context4.prev = _context4.next) {
-          case 0:
-            return _context4.abrupt("return", ethereumRequest(ethereum, 'eth_getBalance', [account, 'latest']));
-
-          case 1:
-          case "end":
-            return _context4.stop();
-        }
+  _getAccountBalance = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(ethereum, account) {
+    return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+      while (1) switch (_context4.prev = _context4.next) {
+        case 0:
+          return _context4.abrupt("return", ethereumRequest(ethereum, 'eth_getBalance', [account, 'latest']));
+        case 1:
+        case "end":
+          return _context4.stop();
       }
     }, _callee4);
   }));
   return _getAccountBalance.apply(this, arguments);
 }
-
 function getBlockNumber(_x8) {
   return _getBlockNumber.apply(this, arguments);
 }
-
 function _getBlockNumber() {
-  _getBlockNumber = _asyncToGenerator( /*#__PURE__*/runtime_1.mark(function _callee5(ethereum) {
-    return runtime_1.wrap(function _callee5$(_context5) {
-      while (1) {
-        switch (_context5.prev = _context5.next) {
-          case 0:
-            return _context5.abrupt("return", ethereumRequest(ethereum, 'eth_blockNumber', []));
-
-          case 1:
-          case "end":
-            return _context5.stop();
-        }
+  _getBlockNumber = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(ethereum) {
+    return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+      while (1) switch (_context5.prev = _context5.next) {
+        case 0:
+          return _context5.abrupt("return", ethereumRequest(ethereum, 'eth_blockNumber', []));
+        case 1:
+        case "end":
+          return _context5.stop();
       }
     }, _callee5);
   }));
   return _getBlockNumber.apply(this, arguments);
 }
-
 function pollEvery(fn, delay) {
   var timer; // can be TimeOut (Node) or number (web)
-
   var stop = false;
-
   var poll = /*#__PURE__*/function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/runtime_1.mark(function _callee(request, onResult) {
+    var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(request, onResult) {
       var result;
-      return runtime_1.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              _context.next = 2;
-              return request();
-
-            case 2:
-              result = _context.sent;
-
-              if (!stop) {
-                onResult(result);
-                timer = setTimeout(poll.bind(null, request, onResult), delay);
-              }
-
-            case 4:
-            case "end":
-              return _context.stop();
-          }
+      return _regeneratorRuntime().wrap(function _callee$(_context) {
+        while (1) switch (_context.prev = _context.next) {
+          case 0:
+            _context.next = 2;
+            return request();
+          case 2:
+            result = _context.sent;
+            if (!stop) {
+              onResult(result);
+              timer = setTimeout(poll.bind(null, request, onResult), delay);
+            }
+          case 4:
+          case "end":
+            return _context.stop();
         }
       }, _callee);
     }));
-
     return function poll(_x9, _x10) {
       return _ref.apply(this, arguments);
     };
   }();
-
   return function () {
     var _fn = fn.apply(void 0, arguments),
-        request = _fn.request,
-        onResult = _fn.onResult;
-
+      request = _fn.request,
+      onResult = _fn.onResult;
     stop = false;
     poll(request, onResult);
     return function () {
@@ -2082,27 +2238,22 @@ var ACCOUNT_KEY = 'LAST_ACTIVE_ACCOUNT';
 var CONNECTOR_KEY = 'LAST_WALLET_CONNECTOR';
 var setLastActiveAccount = function setLastActiveAccount(account) {
   var _localStorage;
-
   (_localStorage = localStorage) == null ? void 0 : _localStorage.setItem(ACCOUNT_KEY, account);
 };
 var clearLastActiveAccount = function clearLastActiveAccount() {
   var _localStorage2;
-
   (_localStorage2 = localStorage) == null ? void 0 : _localStorage2.removeItem(ACCOUNT_KEY);
 };
 var getLastActiveAccount = function getLastActiveAccount() {
   var _localStorage3;
-
   return (_localStorage3 = localStorage) == null ? void 0 : _localStorage3.getItem(ACCOUNT_KEY);
 };
 var setLastConnector = function setLastConnector(connector) {
   var _localStorage4;
-
   (_localStorage4 = localStorage) == null ? void 0 : _localStorage4.setItem(CONNECTOR_KEY, connector);
 };
 var getLastConnector = function getLastConnector() {
   var _localStorage5;
-
   return (_localStorage5 = localStorage) == null ? void 0 : _localStorage5.getItem(CONNECTOR_KEY);
 };
 
@@ -2125,9 +2276,8 @@ const img$7 = require('./walletconnect.png');
 function isElectron() {
   // See https://github.com/electron/electron/issues/2288
   return typeof navigator === 'object' && typeof navigator.userAgent === 'string' && navigator.userAgent.indexOf('Electron') >= 0;
-} // See the corresponding prop type, EthereumProviderType, in prop-types.js.
-
-
+}
+// See the corresponding prop type, EthereumProviderType, in prop-types.js.
 var PROVIDERS = /*#__PURE__*/new Map( /*#__PURE__*/[{
   id: 'frame',
   name: 'Frame',
@@ -2194,71 +2344,63 @@ var PROVIDERS = /*#__PURE__*/new Map( /*#__PURE__*/[{
   }
 }].map(function (provider) {
   return [provider.id, provider];
-})); // Get a providers object for a given ID.
-
+}));
+// Get a providers object for a given ID.
 function getProvider(providerId) {
   return PROVIDERS.get(providerId);
-} // Get a string that depends on the current Ethereum provider.
+}
+// Get a string that depends on the current Ethereum provider.
 // The default string is used as an identifier (à la gettext).
-
-
 function getProviderString(string, providerId) {
   if (providerId === void 0) {
     providerId = 'unknown';
   }
-
   var provider = getProvider(providerId);
   return provider && provider.strings[string] || string;
-} // Get an identifier for the provider, if it can be detected.
-
-
+}
+// Get an identifier for the provider, if it can be detected.
 function identifyProvider(provider) {
   if (provider && isElectron()) {
     return 'frame';
   }
-
   if (provider && provider.isMetaMask) {
     return 'metamask';
   }
-
   return 'unknown';
-} // Get a provider from its useWallet() identifier.
-
-
+}
+// Get a provider from its useWallet() identifier.
 function getProviderFromUseWalletId(id) {
   if (id === 'injected' || id === 'provided') {
     return getProvider(identifyProvider(window.ethereum)) || getProvider('unknown');
   }
-
   return getProvider(id) || getProvider('unknown');
 }
 
+// Only watch block numbers, and return functions allowing to subscribe to it.
 function useWatchBlockNumber(_ref) {
   var ethereum = _ref.ethereum,
-      pollBlockNumberInterval = _ref.pollBlockNumberInterval;
-  var lastBlockNumber = useRef(null); // Using listeners lets useWallet() decide if it wants to expose the block
+    pollBlockNumberInterval = _ref.pollBlockNumberInterval;
+  var lastBlockNumber = useRef(null);
+  // Using listeners lets useWallet() decide if it wants to expose the block
   // number, which implies to re-render whenever the block number updates.
-
   var blockNumberListeners = useRef(new Set());
   var addBlockNumberListener = useCallback(function (cb) {
     if (blockNumberListeners.current.has(cb)) {
       return;
-    } // Immediately send the block number to the new listener
-
-
-    cb(lastBlockNumber.current); // Add the listener
-
+    }
+    // Immediately send the block number to the new listener
+    cb(lastBlockNumber.current);
+    // Add the listener
     blockNumberListeners.current.add(cb);
   }, []);
   var removeBlockNumberListener = useCallback(function (cb) {
     blockNumberListeners.current["delete"](cb);
-  }, []); // Update the block number and broadcast it to the listeners
-
+  }, []);
+  // Update the block number and broadcast it to the listeners
   var updateBlockNumber = useCallback(function (blockNumber) {
     if (lastBlockNumber.current === blockNumber) {
       return;
     }
-
     lastBlockNumber.current = blockNumber;
     blockNumberListeners.current.forEach(function (cb) {
       return cb(blockNumber);
@@ -2269,7 +2411,6 @@ function useWatchBlockNumber(_ref) {
       updateBlockNumber(null);
       return;
     }
-
     var cancel = false;
     var pollBlockNumber = pollEvery(function () {
       return {
@@ -2298,39 +2439,33 @@ function useWatchBlockNumber(_ref) {
 var NO_BALANCE = '-1';
 function useWalletBalance(_ref) {
   var account = _ref.account,
-      ethereum = _ref.ethereum,
-      pollBalanceInterval = _ref.pollBalanceInterval;
-
+    ethereum = _ref.ethereum,
+    pollBalanceInterval = _ref.pollBalanceInterval;
   var _useState = useState(NO_BALANCE),
-      balance = _useState[0],
-      setBalance = _useState[1];
-
+    balance = _useState[0],
+    setBalance = _useState[1];
   useEffect(function () {
     if (!account || !ethereum) {
       return;
     }
-
-    var cancel = false; // Poll wallet balance
-
+    var cancel = false;
+    // Poll wallet balance
     var pollBalance = pollEvery(function (account, ethereum, onUpdate) {
       var lastBalance = NO_BALANCE;
       return {
         request: function request() {
-          return _asyncToGenerator( /*#__PURE__*/runtime_1.mark(function _callee() {
-            return runtime_1.wrap(function _callee$(_context) {
-              while (1) {
-                switch (_context.prev = _context.next) {
-                  case 0:
-                    return _context.abrupt("return", getAccountBalance(ethereum, account).then(function (value) {
-                      return value ? JSBI.BigInt(value).toString() : NO_BALANCE;
-                    })["catch"](function () {
-                      return NO_BALANCE;
-                    }));
-
-                  case 1:
-                  case "end":
-                    return _context.stop();
-                }
+          return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+            return _regeneratorRuntime().wrap(function _callee$(_context) {
+              while (1) switch (_context.prev = _context.next) {
+                case 0:
+                  return _context.abrupt("return", getAccountBalance(ethereum, account).then(function (value) {
+                    return value ? JSBI.BigInt(value).toString() : NO_BALANCE;
+                  })["catch"](function () {
+                    return NO_BALANCE;
+                  }));
+                case 1:
+                case "end":
+                  return _context.stop();
               }
             }, _callee);
           }))();
@@ -2342,8 +2477,8 @@ function useWalletBalance(_ref) {
           }
         }
       };
-    }, pollBalanceInterval); // start polling balance every x time
-
+    }, pollBalanceInterval);
+    // start polling balance every x time
     var stopPollingBalance = pollBalance(account, ethereum, setBalance);
     return function () {
       cancel = true;
@@ -2354,15 +2489,13 @@ function useWalletBalance(_ref) {
   return balance;
 }
 
-var UseWalletContext = /*#__PURE__*/createContext(null); // CONTEXT CONSUMER ============================================================
-
+var UseWalletContext = /*#__PURE__*/createContext(null);
+// CONTEXT CONSUMER ============================================================
 function useWallet() {
   var walletContext = useContext(UseWalletContext);
-
   if (walletContext === null) {
     throw new Error('useWallet() can only be used inside of <UseWalletProvider />, ' + 'please declare it at a higher level.');
   }
-
   var getBlockNumber = useGetBlockNumber();
   var wallet = walletContext.wallet;
   return useMemo(function () {
@@ -2371,20 +2504,16 @@ function useWallet() {
     });
   }, [getBlockNumber, wallet]);
 }
-
 function useGetBlockNumber() {
   var walletContext = useContext(UseWalletContext);
-
   var _useState = useState(null),
-      blockNumber = _useState[0],
-      setBlockNumber = _useState[1];
-
+    blockNumber = _useState[0],
+    setBlockNumber = _useState[1];
   var requestedBlockNumber = useRef(false);
   var getBlockNumber = useCallback(function () {
     if (walletContext === null) {
       return null;
     }
-
     requestedBlockNumber.current = true;
     walletContext.addBlockNumberListener(setBlockNumber);
     return blockNumber;
@@ -2393,7 +2522,6 @@ function useGetBlockNumber() {
     if (!requestedBlockNumber.current || walletContext === null) {
       return;
     }
-
     walletContext.addBlockNumberListener(setBlockNumber);
     return function () {
       walletContext.removeBlockNumberListener(setBlockNumber);
@@ -2401,7 +2529,6 @@ function useGetBlockNumber() {
   }, [requestedBlockNumber, walletContext]);
   return getBlockNumber;
 }
-
 UseWalletProvider.propTypes = {
   children: node,
   connectors: /*#__PURE__*/objectOf(object),
@@ -2415,55 +2542,46 @@ UseWalletProvider.defaultProps = {
   pollBalanceInterval: 2000,
   pollBlockNumberInterval: 5000
 };
-
 function UseWalletProvider(_ref) {
   var children = _ref.children,
-      connectorsInitsOrConfigs = _ref.connectors,
-      autoConnect = _ref.autoConnect,
-      pollBalanceInterval = _ref.pollBalanceInterval,
-      pollBlockNumberInterval = _ref.pollBlockNumberInterval;
+    connectorsInitsOrConfigs = _ref.connectors,
+    autoConnect = _ref.autoConnect,
+    pollBalanceInterval = _ref.pollBalanceInterval,
+    pollBlockNumberInterval = _ref.pollBlockNumberInterval;
   var walletContext = useContext(UseWalletContext);
-
   if (walletContext !== null) {
     throw new Error('<UseWalletProvider /> has already been declared.');
   }
-
   var _useState2 = useState(null),
-      connector = _useState2[0],
-      setConnector = _useState2[1];
-
+    connector = _useState2[0],
+    setConnector = _useState2[1];
   var _useState3 = useState(null),
-      error = _useState3[0],
-      setError = _useState3[1];
-
+    error = _useState3[0],
+    setError = _useState3[1];
   var _useState4 = useState(null),
-      type = _useState4[0],
-      setType = _useState4[1];
-
+    type = _useState4[0],
+    setType = _useState4[1];
   var _useState5 = useState('disconnected'),
-      status = _useState5[0],
-      setStatus = _useState5[1];
-
+    status = _useState5[0],
+    setStatus = _useState5[1];
   var web3ReactContext = useWeb3React();
   var activationId = useRef(0);
   var account = web3ReactContext.account,
-      web3ChainId = web3ReactContext.chainId,
-      ethereum = web3ReactContext.library,
-      web3Error = web3ReactContext.error;
+    web3ChainId = web3ReactContext.chainId,
+    ethereum = web3ReactContext.library,
+    web3Error = web3ReactContext.error;
   var balance = useWalletBalance({
     account: account,
     ethereum: ethereum,
     pollBalanceInterval: pollBalanceInterval
   });
-
   var _useWatchBlockNumber = useWatchBlockNumber({
-    ethereum: ethereum,
-    pollBlockNumberInterval: pollBlockNumberInterval
-  }),
-      addBlockNumberListener = _useWatchBlockNumber.addBlockNumberListener,
-      removeBlockNumberListener = _useWatchBlockNumber.removeBlockNumberListener; // Combine the user-provided connectors with the default ones (see connectors.js).
-
-
+      ethereum: ethereum,
+      pollBlockNumberInterval: pollBlockNumberInterval
+    }),
+    addBlockNumberListener = _useWatchBlockNumber.addBlockNumberListener,
+    removeBlockNumberListener = _useWatchBlockNumber.removeBlockNumberListener;
+  // Combine the user-provided connectors with the default ones (see connectors.js).
   var connectors = useMemo(function () {
     return getConnectors(connectorsInitsOrConfigs);
   }, [connectorsInitsOrConfigs]);
@@ -2474,14 +2592,13 @@ function UseWalletProvider(_ref) {
     if (web3ReactContext.active) {
       web3ReactContext.deactivate();
     }
-
     clearLastActiveAccount();
     setConnector(null);
     setError(null);
     setStatus('disconnected');
-  }, [web3ReactContext]); // if the user switched networks on the wallet itself
+  }, [web3ReactContext]);
+  // if the user switched networks on the wallet itself
   // return unsupported error.
-
   useMemo(function () {
     if (web3Error instanceof UnsupportedChainIdError) {
       setStatus('error');
@@ -2489,147 +2606,116 @@ function UseWalletProvider(_ref) {
     }
   }, [web3Error]);
   var connect = useCallback( /*#__PURE__*/function () {
-    var _ref2 = _asyncToGenerator( /*#__PURE__*/runtime_1.mark(function _callee(connectorId) {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(connectorId) {
       var id, _ref3, connectorInit, connectorConfig, connector, web3ReactConnector, _account, handledError;
-
-      return runtime_1.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              if (connectorId === void 0) {
-                connectorId = 'injected';
-              }
-
-              // Prevent race conditions between connections by using an external ID.
-              id = ++activationId.current;
-              reset(); // Check if another connection has happened right after deactivate().
-
-              if (!(id !== activationId.current)) {
-                _context.next = 5;
-                break;
-              }
-
-              return _context.abrupt("return");
-
-            case 5:
-              if (connectors[connectorId]) {
-                _context.next = 9;
-                break;
-              }
-
-              setStatus('error');
-              setError(new ConnectorUnsupportedError(connectorId));
-              return _context.abrupt("return");
-
-            case 9:
-              // If no connection happens, we're in the right context and can safely update
-              // the connection stage status
-              setStatus('connecting');
-              _ref3 = connectors[connectorId] || [], connectorInit = _ref3[0], connectorConfig = _ref3[1]; // Initialize the (useWallet) connector if it exists.
-
-              _context.next = 13;
-              return connectorInit == null ? void 0 : connectorInit();
-
-            case 13:
-              connector = _context.sent;
-              // Initialize the web3-react connector if it exists.
-              web3ReactConnector = connector == null ? void 0 : connector.web3ReactConnector == null ? void 0 : connector.web3ReactConnector(_extends({}, connectorConfig || {}));
-
-              if (web3ReactConnector) {
-                _context.next = 19;
-                break;
-              }
-
-              setStatus('error');
-              setError(new ConnectorUnsupportedError(connectorId));
-              return _context.abrupt("return");
-
-            case 19:
-              _context.prev = 19;
-              // TODO: there is no way to prevent an activation to complete, but we
-              // could reconnect to the last provider the user tried to connect to.
-              setConnector(connectorId);
-              _context.next = 23;
-              return web3ReactContext.activate(web3ReactConnector, undefined, true);
-
-            case 23:
-              setLastConnector(connectorId);
-
-              if (!(connectorId === 'injected')) {
-                _context.next = 30;
-                break;
-              }
-
-              _context.next = 27;
-              return web3ReactConnector.getAccount();
-
-            case 27:
-              _account = _context.sent;
-              _account && setLastActiveAccount(_account);
-              web3ReactConnector.getProvider().then(function (provider) {
-                provider.on('accountsChanged', function (accounts) {
-                  setLastActiveAccount(accounts[0]);
-                });
-              });
-
-            case 30:
-              setStatus('connected');
-              _context.next = 48;
+      return _regeneratorRuntime().wrap(function _callee$(_context) {
+        while (1) switch (_context.prev = _context.next) {
+          case 0:
+            if (connectorId === void 0) {
+              connectorId = 'injected';
+            }
+            // Prevent race conditions between connections by using an external ID.
+            id = ++activationId.current;
+            reset();
+            // Check if another connection has happened right after deactivate().
+            if (!(id !== activationId.current)) {
+              _context.next = 5;
               break;
-
-            case 33:
-              _context.prev = 33;
-              _context.t0 = _context["catch"](19);
-
-              if (!(id !== activationId.current)) {
-                _context.next = 37;
-                break;
-              }
-
-              return _context.abrupt("return");
-
-            case 37:
-              // If not, the error has been thrown during the current connection attempt,
-              // so it's correct to indicate that there has been an error
-              setConnector(null);
-              setStatus('error');
-
-              if (!(_context.t0 instanceof UnsupportedChainIdError)) {
-                _context.next = 42;
-                break;
-              }
-
-              setError(new ChainUnsupportedError(_context.t0.message));
-              return _context.abrupt("return");
-
-            case 42:
-              if (!connector.handleActivationError) {
-                _context.next = 47;
-                break;
-              }
-
-              handledError = connector.handleActivationError(_context.t0);
-
-              if (!handledError) {
-                _context.next = 47;
-                break;
-              }
-
-              setError(handledError);
-              return _context.abrupt("return");
-
-            case 47:
-              // Otherwise, set to state the received error
-              setError(_context.t0);
-
-            case 48:
-            case "end":
-              return _context.stop();
-          }
+            }
+            return _context.abrupt("return");
+          case 5:
+            if (connectors[connectorId]) {
+              _context.next = 9;
+              break;
+            }
+            setStatus('error');
+            setError(new ConnectorUnsupportedError(connectorId));
+            return _context.abrupt("return");
+          case 9:
+            // If no connection happens, we're in the right context and can safely update
+            // the connection stage status
+            setStatus('connecting');
+            _ref3 = connectors[connectorId] || [], connectorInit = _ref3[0], connectorConfig = _ref3[1]; // Initialize the (useWallet) connector if it exists.
+            _context.next = 13;
+            return connectorInit == null ? void 0 : connectorInit();
+          case 13:
+            connector = _context.sent;
+            // Initialize the web3-react connector if it exists.
+            web3ReactConnector = connector == null ? void 0 : connector.web3ReactConnector == null ? void 0 : connector.web3ReactConnector(_extends({}, connectorConfig || {}));
+            if (web3ReactConnector) {
+              _context.next = 19;
+              break;
+            }
+            setStatus('error');
+            setError(new ConnectorUnsupportedError(connectorId));
+            return _context.abrupt("return");
+          case 19:
+            _context.prev = 19;
+            // TODO: there is no way to prevent an activation to complete, but we
+            // could reconnect to the last provider the user tried to connect to.
+            setConnector(connectorId);
+            _context.next = 23;
+            return web3ReactContext.activate(web3ReactConnector, undefined, true);
+          case 23:
+            setLastConnector(connectorId);
+            if (!(connectorId === 'injected')) {
+              _context.next = 30;
+              break;
+            }
+            _context.next = 27;
+            return web3ReactConnector.getAccount();
+          case 27:
+            _account = _context.sent;
+            _account && setLastActiveAccount(_account);
+            web3ReactConnector.getProvider().then(function (provider) {
+              provider.on('accountsChanged', function (accounts) {
+                setLastActiveAccount(accounts[0]);
+              });
+            });
+          case 30:
+            setStatus('connected');
+            _context.next = 48;
+            break;
+          case 33:
+            _context.prev = 33;
+            _context.t0 = _context["catch"](19);
+            if (!(id !== activationId.current)) {
+              _context.next = 37;
+              break;
+            }
+            return _context.abrupt("return");
+          case 37:
+            // If not, the error has been thrown during the current connection attempt,
+            // so it's correct to indicate that there has been an error
+            setConnector(null);
+            setStatus('error');
+            if (!(_context.t0 instanceof UnsupportedChainIdError)) {
+              _context.next = 42;
+              break;
+            }
+            setError(new ChainUnsupportedError(_context.t0.message));
+            return _context.abrupt("return");
+          case 42:
+            if (!connector.handleActivationError) {
+              _context.next = 47;
+              break;
+            }
+            handledError = connector.handleActivationError(_context.t0);
+            if (!handledError) {
+              _context.next = 47;
+              break;
+            }
+            setError(handledError);
+            return _context.abrupt("return");
+          case 47:
+            // Otherwise, set to state the received error
+            setError(_context.t0);
+          case 48:
+          case "end":
+            return _context.stop();
         }
       }, _callee, null, [[19, 33]]);
     }));
-
     return function (_x) {
       return _ref2.apply(this, arguments);
     };
@@ -2638,26 +2724,22 @@ function UseWalletProvider(_ref) {
     if (!autoConnect) {
       return;
     }
-
     var lastConnector = getLastConnector();
     var lastActiveAccount = getLastActiveAccount();
-
     if (lastActiveAccount && lastConnector === 'injected') {
       var isInjectedAvailable = Object.keys(connectors).some(function (key) {
         return key === 'injected';
       });
-
       if (isInjectedAvailable) {
         connect();
       }
-    } //eslint-disable-next-line
-
+    }
+    //eslint-disable-next-line
   }, []);
   useEffect(function () {
     if (!account || !ethereum) {
       return;
     }
-
     var cancel = false;
     setType(null);
     getAccountIsContract(ethereum, account).then(function (isContract) {
@@ -2703,10 +2785,8 @@ function UseWalletProvider(_ref) {
     }
   }, children);
 }
-
 UseWalletProviderWrapper.propTypes = UseWalletProvider.propTypes;
 UseWalletProviderWrapper.defaultProps = UseWalletProvider.defaultProps;
-
 function UseWalletProviderWrapper(props) {
   return createElement(Web3ReactProvider, {
     getLibrary: function getLibrary(ethereum) {
