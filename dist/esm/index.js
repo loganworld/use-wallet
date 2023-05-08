@@ -2006,6 +2006,14 @@ var CHAIN_INFORMATION = /*#__PURE__*/new Map([[1, {
   shortName: 'Arbitrum',
   explorerUrl: "https://goerli.arbiscan.io/",
   testnet: true
+}], [11155111, {
+  id: 11155111,
+  nativeCurrency: ETH,
+  type: 'testnet',
+  fullName: 'Sepolia Testnet',
+  shortName: 'Sepolia',
+  explorerUrl: "https://sepolia.etherscan.io/",
+  testnet: true
 }]]);
 /**
  * This method checks whether a particular chain id is known.

@@ -523,6 +523,18 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
       testnet: true,
     },
   ],
+  [
+    11155111,
+    {
+      id: 11155111,
+      nativeCurrency: ETH,
+      type: 'testnet',
+      fullName: 'Sepolia Testnet',
+      shortName: 'Sepolia',
+      explorerUrl: `https://sepolia.etherscan.io/`,
+      testnet: true,
+    },
+  ],
 ])
 
 /**
