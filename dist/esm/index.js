@@ -1719,6 +1719,11 @@ var EVMOS = {
   symbol: 'EVMOS',
   decimals: 18
 };
+var MGB = {
+  name: 'Mugambo',
+  symbol: 'MGB',
+  decimals: 18
+};
 var CHAIN_INFORMATION = /*#__PURE__*/new Map([[1, {
   id: 1,
   nativeCurrency: ETH,
@@ -2013,6 +2018,14 @@ var CHAIN_INFORMATION = /*#__PURE__*/new Map([[1, {
   fullName: 'Sepolia Testnet',
   shortName: 'Sepolia',
   explorerUrl: "https://sepolia.etherscan.io/",
+  testnet: true
+}], [351, {
+  id: 351,
+  nativeCurrency: MGB,
+  type: 'testnet',
+  fullName: 'Mugambo Testnet',
+  shortName: 'Mugambo',
+  explorerUrl: "https://test-explorer.Mugambo.org/",
   testnet: true
 }]]);
 /**

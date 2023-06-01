@@ -86,6 +86,11 @@ const EVMOS: Currency = {
   symbol: 'EVMOS',
   decimals: 18,
 }
+const MGB: Currency = {
+  name: 'Mugambo',
+  symbol: 'MGB',
+  decimals: 18,
+}
 
 const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
   [
@@ -532,6 +537,18 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
       fullName: 'Sepolia Testnet',
       shortName: 'Sepolia',
       explorerUrl: `https://sepolia.etherscan.io/`,
+      testnet: true,
+    },
+  ],
+  [
+    351,
+    {
+      id: 351,
+      nativeCurrency: MGB,
+      type: 'testnet',
+      fullName: 'Mugambo Testnet',
+      shortName: 'Mugambo',
+      explorerUrl: `https://test-explorer.Mugambo.org/`,
       testnet: true,
     },
   ],
