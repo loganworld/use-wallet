@@ -552,6 +552,30 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
       testnet: true,
     },
   ],
+  [
+    8453,
+    {
+      id: 8453,
+      nativeCurrency: ETH,
+      type: 'main',
+      fullName: 'Base Mainnet',
+      shortName: 'Base',
+      explorerUrl: `https://developer-access-mainnet.base.org`,
+      testnet: true,
+    },
+  ],
+  [
+    84531,
+    {
+      id: 84531,
+      nativeCurrency: ETH,
+      type: 'testnet',
+      fullName: 'Base Goerli Testnet',
+      shortName: 'Base',
+      explorerUrl: `https://goerli.base.org`,
+      testnet: true,
+    },
+  ],
 ])
 
 /**
