@@ -2011,6 +2011,14 @@ var CHAIN_INFORMATION = /*#__PURE__*/new Map([[1, {
   shortName: 'Arbitrum',
   explorerUrl: "https://goerli.arbiscan.io/",
   testnet: true
+}], [421614, {
+  id: 421614,
+  nativeCurrency: ETH,
+  type: 'testnet',
+  fullName: 'Arbitrum Sepolia Testnet',
+  shortName: 'Arbitrum',
+  explorerUrl: "https://sepolia-rollup.arbitrum.io/rpc",
+  testnet: true
 }], [11155111, {
   id: 11155111,
   nativeCurrency: ETH,

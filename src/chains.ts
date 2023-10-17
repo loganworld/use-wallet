@@ -529,6 +529,18 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
     },
   ],
   [
+    421614,
+    {
+      id: 421614,
+      nativeCurrency: ETH,
+      type: 'testnet',
+      fullName: 'Arbitrum Sepolia Testnet',
+      shortName: 'Arbitrum',
+      explorerUrl: `https://sepolia-rollup.arbitrum.io/rpc`,
+      testnet: true,
+    },
+  ],
+  [
     11155111,
     {
       id: 11155111,
