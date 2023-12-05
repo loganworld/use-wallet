@@ -1724,6 +1724,11 @@ var MGB = {
   symbol: 'MGB',
   decimals: 18
 };
+var NOVA = {
+  name: 'NovaToken',
+  symbol: 'NVT',
+  decimals: 18
+};
 var CHAIN_INFORMATION = /*#__PURE__*/new Map([[1, {
   id: 1,
   nativeCurrency: ETH,
@@ -2050,6 +2055,14 @@ var CHAIN_INFORMATION = /*#__PURE__*/new Map([[1, {
   fullName: 'Base Goerli Testnet',
   shortName: 'Base',
   explorerUrl: "https://goerli.base.org",
+  testnet: true
+}], [350, {
+  id: 350,
+  nativeCurrency: NOVA,
+  type: 'main',
+  fullName: 'Nova Mainnet',
+  shortName: 'Nova',
+  explorerUrl: "https://explorer.novatoken.fr/",
   testnet: true
 }]]);
 /**

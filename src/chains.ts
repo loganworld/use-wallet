@@ -91,6 +91,11 @@ const MGB: Currency = {
   symbol: 'MGB',
   decimals: 18,
 }
+const NOVA: Currency = {
+  name: 'NovaToken',
+  symbol: 'NVT',
+  decimals: 18,
+}
 
 const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
   [
@@ -585,6 +590,18 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
       fullName: 'Base Goerli Testnet',
       shortName: 'Base',
       explorerUrl: `https://goerli.base.org`,
+      testnet: true,
+    },
+  ],
+  [
+    350,
+    {
+      id: 350,
+      nativeCurrency: NOVA,
+      type: 'main',
+      fullName: 'Nova Mainnet',
+      shortName: 'Nova',
+      explorerUrl: `https://explorer.novatoken.fr/`,
       testnet: true,
     },
   ],
