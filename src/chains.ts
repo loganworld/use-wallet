@@ -96,6 +96,11 @@ const NOVA: Currency = {
   symbol: 'NVT',
   decimals: 18,
 }
+const PHRON: Currency = {
+  name: 'PhronToken',
+  symbol: 'PHR',
+  decimals: 18,
+}
 
 const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
   [
@@ -602,6 +607,18 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
       fullName: 'Nova Mainnet',
       shortName: 'Nova',
       explorerUrl: `https://explorer.novatoken.fr/`,
+      testnet: true,
+    },
+  ],
+  [
+    4477,
+    {
+      id: 4477,
+      nativeCurrency: PHRON,
+      type: 'testnet',
+      fullName: 'Phron Testnet',
+      shortName: 'Phron',
+      explorerUrl: `https://testnet.phronscan.io/`,
       testnet: true,
     },
   ],
