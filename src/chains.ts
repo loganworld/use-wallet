@@ -622,6 +622,30 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
       testnet: true,
     },
   ],
+  [
+    168587773,
+    {
+      id: 168587773,
+      nativeCurrency: ETH,
+      type: 'testnet',
+      fullName: "blast sepolia chain",
+      shortName: "blast sepolia",
+      explorerUrl: "https://sepolia.blastscan.io/",
+      testnet: true
+    },
+  ],
+  [
+    81457,
+    {
+      id: 81457,
+      nativeCurrency: ETH,
+      type: 'mainnet',
+      fullName: "blast chain",
+      shortName: "blast",
+      explorerUrl: "https://blastscan.io/",
+      testnet: false
+    }
+  ],
 ])
 
 /**
