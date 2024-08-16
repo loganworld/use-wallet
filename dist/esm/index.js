@@ -2069,8 +2069,8 @@ var CHAIN_INFORMATION = /*#__PURE__*/new Map([[1, {
   shortName: 'Nova',
   explorerUrl: "https://explorer.novatoken.fr/",
   testnet: true
-}], [4477, {
-  id: 4477,
+}], [7744, {
+  id: 7744,
   nativeCurrency: PHRON,
   type: 'testnet',
   fullName: 'Phron Testnet',

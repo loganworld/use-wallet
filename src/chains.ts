@@ -611,9 +611,9 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
     },
   ],
   [
-    4477,
+    7744,
     {
-      id: 4477,
+      id: 7744,
       nativeCurrency: PHRON,
       type: 'testnet',
       fullName: 'Phron Testnet',
