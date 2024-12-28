@@ -2093,6 +2093,14 @@ var CHAIN_INFORMATION = /*#__PURE__*/new Map([[1, {
   shortName: "blast",
   explorerUrl: "https://blastscan.io/",
   testnet: false
+}], [84532, {
+  id: 84532,
+  nativeCurrency: ETH,
+  type: 'testnet',
+  fullName: "base sepolia chain",
+  shortName: "base sepolia",
+  explorerUrl: "https://sepolia.basescan.org/",
+  testnet: true
 }]]);
 /**
  * This method checks whether a particular chain id is known.
